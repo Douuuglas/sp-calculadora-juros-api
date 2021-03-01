@@ -1,5 +1,6 @@
-﻿using Domain.Entities;
+﻿using Application.Service;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using WebApi.Dtos;
 
 namespace WebApi.Controllers
@@ -8,17 +9,17 @@ namespace WebApi.Controllers
     [Route("[controller]")]
     public class CalculaJurosController : ControllerBase
     {
-        private readonly CalculadoraJurosCompostos _calculadora;
+        private readonly CalculadoraJurosCompostosService _calculadora;
 
-        public CalculaJurosController(CalculadoraJurosCompostos calculadora)
+        public CalculaJurosController(CalculadoraJurosCompostosService calculadora)
         {
             _calculadora = calculadora;
         }
 
         [HttpPost]
-        public decimal Post([FromBody] CalculaJurosGetRequest request)
+        public async Task<decimal> Post([FromBody] CalculaJurosCompostosDto request)
         {
-            return _calculadora.Calcular(request.ValorInicial, request.TaxaJuros, request.TempoEmMeses);
+            return await _calculadora.Calcular(request);
         }
     }
 }

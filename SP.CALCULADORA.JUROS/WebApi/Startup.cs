@@ -1,16 +1,15 @@
+using Application.Interfaces;
+using Application.Service;
 using Domain.Entities;
+using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using WebApi.PollyPolicies;
 
 namespace WebApi
 {
@@ -32,7 +31,13 @@ namespace WebApi
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
             });
 
+            services
+                .AddHttpClient<ITaxaJurosRepository, TaxaJurosRepository>()
+                .AddPolicyHandler(Policies.GetRetryPolicy());
+
             services.AddScoped<CalculadoraJurosCompostos>();
+            services.AddScoped<CalculadoraJurosCompostosService>();
+            services.AddScoped<ITaxaJurosRepository, TaxaJurosRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
