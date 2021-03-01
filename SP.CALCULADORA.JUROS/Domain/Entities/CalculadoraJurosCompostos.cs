@@ -11,7 +11,9 @@ namespace Domain.Entities
         public decimal Calcular(decimal valorInicial, decimal taxaJuros, int tempoEmMeses)
         {
             var juros = (decimal)Math.Pow(1 + (double)taxaJuros, tempoEmMeses);
-            return Math.Round(valorInicial * juros, 2);
+            var valorFinal = valorInicial * juros;
+
+            return Math.Floor(valorFinal * 100m) / 100m;
         }
     }
 }

@@ -10,6 +10,19 @@ namespace Domain.Tests.Entities
     public class CalculadoraJurosCompostosTests
     {
         [Fact]
+        public void DadoValorInicial100EJuros1PorcentoE3MesesDeveRetornar105_10()
+        {
+            var valorInicial = 100.00m;
+            var juros = 0.01m;
+            var meses = 5;
+            var calculadora = new CalculadoraJurosCompostos();
+
+            var valorFinal = calculadora.Calcular(valorInicial, juros, meses);
+
+            valorFinal.Should().Be(105.10m);
+        }
+
+        [Fact]
         public void DadoValorInicial100EJuros1PorcentoE3MesesDeveRetornar103_03()
         {
             var valorInicial = 100.00m;

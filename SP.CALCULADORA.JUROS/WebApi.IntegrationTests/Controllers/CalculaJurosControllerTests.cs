@@ -21,18 +21,17 @@ namespace WebApi.IntegrationTests.Controllers
         }
 
         [Fact]
-        public async Task DadaRequiscaoGetDeveRetornarUmPorcento()
+        public async Task DadaRequiscaoGetValorInial100ETempo3DeveRetornar105_10()
         {
             var endpoint = "CalculaJuros";
-            var request = new CalculaJurosCompostosDto() { ValorInicial = 100, TempoEmMeses = 3  };
+            var request = new CalculaJurosCompostosDto() { ValorInicial = 100, TempoEmMeses = 5  };
             var content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
-
 
             var response = await _httpClient.PostAsync(endpoint, content);
             var result = Convert.ToDecimal(await response.Content.ReadAsStringAsync());
 
             response.StatusCode.Should().Be(200);
-            result.Should().Be(103.03m);
+            result.Should().Be(105.10m);
         }
     }
 }
