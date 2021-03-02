@@ -6,7 +6,7 @@ API de cálculo de juros compostos com apenas um endpoint:
 
 # Estrutura
  
- Projeto contruído em Asp.Net Core, sem nenhuma camada. Utilizado para testes de integração no projeto <a href="https://github.com/Douuuglas/sp-calculadora-juros-api">🔗 sp-calculadora-juros-api</a>.
+ Projeto contruído em Asp.Net Core e com uma implementação simples de DDD, TDD, container, injeção de dependência e teste de integração.
 
 # Requisitos para rodar a aplicação
   * .Net 5;
@@ -16,12 +16,12 @@ API de cálculo de juros compostos com apenas um endpoint:
 
 Acessar o terminal do windows e baixar o projeto:
 ```
-git clone https://github.com/Douuuglas/sp-taxa-juros-api.git
+git clone https://github.com/Douuuglas/sp-calculadora-juros-api.git
 ```
 
 Entrar na pasta do projeto:
 ```
-cd sp-taxa-juros-api
+cd sp-calculadora-juros-api
 ```
 
 Buildar o projeto:
@@ -30,6 +30,9 @@ dotnet build
 ```
 
 Rodar os testes:
+ * O ideal era utilzar o docker-compose que montasse o ambiente automaticamente, mas fica como melhoria! :D
+ * Primeiro colocar para rodar a API sp-taxa-juros-api em container, utilizado o passo a passo descrito <a href="https://github.com/Douuuglas/sp-taxa-juros-api">🔗 aqui</a>;
+ * Após, executar o comando abaixo.
 ```
 dotnet test
 ```
@@ -41,12 +44,12 @@ dotnet run --project .\WebApi\WebApi.csproj
 
 Buildar o projeto em container:
 ```
-docker build -t taxa-juros-api -f .\WebApi\Dockerfile .
+docker build -t calculadora-juros-api -f .\WebApi\Dockerfile .
 ```
 
 Rodar o projeto em container:
-```bash
-docker run --name taxa-juros-api -dp 8080:80 taxa-juros-api
+```
+docker run --name calculadora-juros-api -dp 8081:80 calculadora-juros-api
 ```
 
 
